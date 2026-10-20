@@ -20,6 +20,8 @@ mods/autoLogo/logo/98000001.jpg     (corporation)
 - Docker and native deployments; the installer registers the preload, keeps
   `mods/` in the Docker build context and adds the logo bind mount.
 
-Note: the image service caches images for up to five minutes (upstream). The
-server files change immediately; a logged-in client picks the new logo up after
-that window or after a relogin.
+Note: the server files change immediately, but the EVE client keeps its own texture
+cache and may keep showing the old logo even after the five-minute HTTP cache
+window. If a replaced logo does not appear, clear the client image cache
+(%LOCALAPPDATA%\CCP\EVE\...) or use a fresh client; that is a client cache issue,
+not a server one.

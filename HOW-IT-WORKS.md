@@ -55,18 +55,26 @@ There is no chat command. The folder is the interface:
   `corporation-logo/.autoLogo-state.json` listing the ids *it* published and their
   source hashes. Only those ids are ever removed - files another tool put into the
   alliance folder are never touched.
-## 5. Failure behaviour
+## 5. Client cache
+
+The image service sends `Cache-Control: public, max-age=300`, but the EVE client
+also keeps its own texture cache and may keep an old logo much longer. A replaced
+logo therefore sometimes needs the client image cache cleared
+(`%LOCALAPPDATA%\\CCP\\EVE\\...`) or a fresh client; the server files are already
+current and a direct request returns the new bytes.
+
+## 6. Failure behaviour
 
 * A bad image is skipped with a log line naming the file and the reason.
 * A failed render or write is logged; previous files stay.
 * If a future build changes the resolver, the wrapper stops matching and the
   vendor behaviour returns.
-* The chat overlay only inspects the chat dispatcher module, resolved by path, so
-  a circular partial export is never touched.
+* The mod never touches the chat dispatcher or the slash command list; it is
+  purely a file watcher plus the image-edge resolver wrapper.
 
-## 6. Tests
+## 7. Tests
 
 `node test/run.js` covers image parsing, square rendering with padding, request
 matching, dual publishing (alliance store calls + corporation files), wrong names,
-unchanged/force behaviour, size fallback, both delete paths, command parsing and
-overlay for both names, and the resolver wrapper.
+unchanged/force behaviour, size fallback, the completed-removal delete helpers, the
+state round-trip and the resolver wrapper.

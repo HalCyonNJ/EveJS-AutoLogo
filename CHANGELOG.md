@@ -18,6 +18,8 @@ First release, for EveJS 261018.1 (Docker and native loader paths).
 - Ignored files are recorded during every scan and the next command lists them
   (wrong name, not a real image, id that is neither an alliance nor a
   corporation).
+- Documented that the EVE client texture cache can keep an old logo after the
+  five-minute HTTP window; clearing the client image cache is the reliable fix.
 - Installer registers the preload in both deployment kinds, keeps `mods/` in the
   Docker build context and adds the logo bind mount; uninstall keeps `logo/`
   unless `--purge-logos` is given.

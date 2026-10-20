@@ -41,6 +41,6 @@ already current (a direct request returns the new bytes).
 |---|---|
 | No `[autoLogo]` boot line | preload missing: run the installer, rebuild/restart |
 | `... not a PNG or JPEG` | the file is not really an image; re-export it |
-| Nothing changes in game | wait five minutes / relog; confirm the published files exist |
-| `/alogo` says "staff command" | the account lacks the staff view role |
+| Nothing changes in game | confirm the published files exist, then clear the client image cache (`%LOCALAPPDATA%\CCP\EVE\...`) or use a fresh client; the EVE texture cache can keep the old logo far longer than the five-minute HTTP cache |
+| Deleting the source did not remove the logo | the state file is written after the next sweep; wait a second or check the boot log |
 | `id ... matches neither an alliance nor a corporation` | typo in the file name |
