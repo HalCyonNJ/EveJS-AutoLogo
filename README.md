@@ -17,8 +17,11 @@ mods/autoLogo/logo/98000002.jpeg
   files are served by wrapping the image edge's resolver in memory. **No EveJS
   source file is edited.**
 * The folder is watched (about a second) and re-checked every minute.
-* The image service caches an image for **five minutes**; reconnect (or wait) to
-  see a replaced logo.
+* The image service sends `Cache-Control: public, max-age=300`, but the EVE
+  client also keeps its own texture cache and may keep an old logo much longer.
+  If a replaced logo does not show up, clear the client image cache
+  (`%LOCALAPPDATA%\CCP\EVE\...`) or use a fresh client; that is a client cache
+  issue, not a server one.
 
 ## Install
 

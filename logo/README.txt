@@ -21,7 +21,8 @@ Rules
   `gameStore/images/Alliance/` and corporation files into `corporation-logo/`,
   then applies a new or changed file within about a second and re-checks every
   minute.
-* The image service caches an image for five minutes, so reconnect the client -
-  or wait - to see a replaced logo.
+* The image service sends a five-minute cache header, but the EVE client keeps
+  its own texture cache and may keep an old logo much longer. If a replaced logo
+  does not show up, clear the client image cache (%LOCALAPPDATA%\CCP\EVE\...).
 
 To remove a logo, delete its image file; the next scan removes both published copies.

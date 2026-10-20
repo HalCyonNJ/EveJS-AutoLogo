@@ -30,12 +30,11 @@ Delete (or rename) the source image; the next scan removes both published copies
 again. Nothing else is needed - there is no command.
 ## Seeing the change in the client
 
-The image service sends `Cache-Control: public, max-age=300` for images
-(upstream). The server files are current immediately, but a client that already
-loaded the old texture shows it until the five-minute window has passed or the
-client relogins. A server-side mod cannot invalidate a texture that a running
-client already holds.
-
+The image service sends `Cache-Control: public, max-age=300` (upstream), but the
+EVE client also maintains its own texture cache and can keep an old logo well past
+that window. If a replaced logo does not show up, clear the client image cache
+(`%LOCALAPPDATA%\CCP\EVE\...`) or test with a fresh client; the server files are
+already current (a direct request returns the new bytes).
 ## Troubleshooting
 
 | Symptom | Check |
