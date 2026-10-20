@@ -294,7 +294,7 @@ function main(argv) {
     }
     out(`  Logos      : drop <corporationID>.png|jpg|jpeg into ${path.join(serverRoot, "mods", MOD_NAME, "logo")}`);
     out("  Commands   : /alogo flush, /alogo delete <id> (staff)");
-    out("  Confirm a boot line: [autoLogo] v1.0.0 active");
+    out("  Confirm a boot line: [autoLogo] v1.1.0 active");
   } else {
     out("");
     out("  (dry run: nothing was written)");

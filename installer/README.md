@@ -33,7 +33,7 @@ docker compose build init
 docker compose up -d --no-deps server
 ```
 
-Confirm the boot line `[autoLogo] v1.0.0 active - /app/mods/autoLogo/logo`.
+Confirm the boot line `[autoLogo] v1.1.0 active - /app/mods/autoLogo/logo`.
 
 ## Uninstall
 

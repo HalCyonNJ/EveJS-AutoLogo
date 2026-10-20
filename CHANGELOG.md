@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 - 2026-10-21
+## 1.1.0 - 2026-10-21
 
 First release, for EveJS 261018.1 (Docker and native loader paths).
 

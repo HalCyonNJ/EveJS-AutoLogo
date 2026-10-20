@@ -224,7 +224,7 @@ test("resolver wrapper: published corporation file wins, others fall through", (
 });
 
 test("loader: version, root detection and process role", () => {
-  assert.strictEqual(MOD_VERSION, "1.0.0");
+  assert.strictEqual(MOD_VERSION, "1.1.0");
   assert.strictEqual(resolveRoot(tempDir("al-root2-")), null);
   assert.strictEqual(isGameServerProcess("/nonexistent"), false);
 });
