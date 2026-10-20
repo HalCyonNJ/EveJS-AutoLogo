@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 3,
+  "id": "autoLogo",
+  "displayName": "Auto Logo",
+  "version": "1.0.0",
+  "description": "Publishes alliance and corporation logos from one folder: drop <id>.png, .jpg or .jpeg (max 1280x1280) into mods/autoLogo/logo. Alliance and corporation ids never collide, so one folder serves both; /alogo is the staff command.",
+  "kind": "loader",
+  "supportedBackends": [
+    "native",
+    "docker"
+  ],
+  "activation": {
+    "strategy": "loader_rename"
+  },
+  "restart": "game_server",
+  "compatibility": {
+    "evejsVersions": [
+      "261018.1"
+    ]
+  }
+}
