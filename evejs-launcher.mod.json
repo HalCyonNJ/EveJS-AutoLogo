@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 3,
+  "id": "autoAllianceLogo",
+  "displayName": "Auto Alliance Logo",
+  "version": "1.0.0",
+  "description": "Publishes an alliance's custom logo from a file: drop <allianceID>.png, .jpg or .jpeg (max 1280x1280) into the mod's logo folder and the image service serves it. No client patch, no database edit.",
+  "kind": "loader",
+  "supportedBackends": [
+    "native",
+    "docker"
+  ],
+  "activation": {
+    "strategy": "loader_rename"
+  },
+  "restart": "game_server",
+  "compatibility": {
+    "evejsVersions": [
+      "261018.1"
+    ]
+  }
+}
