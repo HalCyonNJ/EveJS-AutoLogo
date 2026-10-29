@@ -73,7 +73,7 @@ resolver. Alliance logos use the vendor's existing file-backed store.
 ## Boot line
 
 ```
-[autoLogo] v1.1.0 active - /app/mods/autoLogo/logo -> /var/lib/evejs/corporation-logo
+[autoLogo] v1.1.1 active - /app/mods/autoLogo/logo -> /var/lib/evejs/corporation-logo
 
 ```
 

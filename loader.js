@@ -31,7 +31,7 @@ const {
 } = require("./lib/publish");
 const { installResolver } = require("./lib/resolver");
 
-const MOD_VERSION = "1.1.0";
+const MOD_VERSION = "1.1.1";
 const KEY = Symbol.for("evejs.autoLogo.v1");
 const SWEEP_INTERVAL_MS = 60 * 1000;
 const WATCH_DEBOUNCE_MS = 1000;

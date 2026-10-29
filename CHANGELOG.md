@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.1 - 2026-10-29
+
+**Compatibility only: re-checked against EveJS 261028.1.**
+
+- Every server file the mod touches is byte-identical in 261028.1:
+  `allianceImageStore.js`, `_secondary/image/imageRequestResolver.js`,
+  `edge/image/imageEdgeRuntime.js`, `edge/image/imageEdgeProcess.worker.js` and
+  `_shared/orderedProcessClient.js`, so the in-memory resolver wrapper and the
+  fork inheritance still work unchanged.
+- `compatibility.evejsVersions` now lists `261018.1` and `261028.1`.
+- No code change, no server source edit.
 ## 1.1.0 - 2026-10-21
 
 First release, for EveJS 261018.1 (Docker and native loader paths).

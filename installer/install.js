@@ -292,9 +292,9 @@ function main(argv) {
       out("  Next steps : docker compose build init");
       out("               docker compose up -d --no-deps server");
     }
-    out(`  Logos      : drop <corporationID>.png|jpg|jpeg into ${path.join(serverRoot, "mods", MOD_NAME, "logo")}`);
-    out("  Commands   : /alogo flush, /alogo delete <id> (staff)");
-    out("  Confirm a boot line: [autoLogo] v1.1.0 active");
+    out(`  Logos      : drop <id>.png|jpg|jpeg into ${path.join(serverRoot, "mods", MOD_NAME, "logo")} (alliance or corporation id)`);
+    
+    out("  Confirm a boot line: [autoLogo] v1.1.1 active");
   } else {
     out("");
     out("  (dry run: nothing was written)");

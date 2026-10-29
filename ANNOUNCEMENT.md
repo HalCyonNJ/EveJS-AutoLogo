@@ -1,4 +1,4 @@
-# autoLogo 1.1.0
+# autoLogo 1.1.1
 
 One mod for alliance **and** corporation logos. Drop an image named after the
 entity id into the mod's `logo/` folder - alliance and corporation ids never
