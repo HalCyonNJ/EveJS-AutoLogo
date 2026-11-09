@@ -294,7 +294,7 @@ function main(argv) {
     }
     out(`  Logos      : drop <id>.png|jpg|jpeg into ${path.join(serverRoot, "mods", MOD_NAME, "logo")} (alliance or corporation id)`);
     
-    out("  Confirm a boot line: [autoLogo] v1.1.1 active");
+    out("  Confirm a boot line: [autoLogo] v1.1.2 active");
   } else {
     out("");
     out("  (dry run: nothing was written)");
