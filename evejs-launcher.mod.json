@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "id": "autoLogo",
   "displayName": "Auto Logo",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Publishes alliance and corporation logos from one folder: drop <id>.png, .jpg or .jpeg (max 1280x1280) into mods/autoLogo/logo. Alliance and corporation ids never collide, so one folder serves both; there are no commands: add, overwrite or delete the image file.",
   "kind": "loader",
   "supportedBackends": [
@@ -17,7 +17,8 @@
     "evejsVersions": [
       "261018.1",
       "261028.1",
-      "261108.1"
+      "261108.1",
+      "261115.2"
     ]
   }
 }
