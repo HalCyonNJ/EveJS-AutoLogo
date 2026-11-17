@@ -5,10 +5,16 @@ Drop an image named after the entity id into one folder - alliance ids and
 corporation ids never collide, so a single folder serves both.
 
 ```
-mods/autoLogo/logo/99000001.png     (alliance)
-mods/autoLogo/logo/98000001.jpg     (corporation)
-mods/autoLogo/logo/98000002.jpeg
+_local/autoLogo/logo/99000001.png     (alliance)
+_local/autoLogo/logo/98000001.jpg     (corporation)
+_local/autoLogo/logo/98000002.jpeg
 ```
+
+The folder defaults to `_local/autoLogo/logo`, **outside the mod package**, so a
+launcher update cannot replace it. `config/autoLogo.json` with
+`{"logoPath": "<folder>"}` (relative to the EveJS root) overrides the location;
+an existing `mods/autoLogo/logo/` from an older install is still honoured when
+the setting is absent.
 
 * PNG or JPEG, up to **1280 x 1280**; larger images are scaled down to fit.
 * Every source is rendered into the six square sizes the image service asks for
@@ -32,7 +38,7 @@ node installer/install.js --status --server "D:\path\to\EveJS"
 ```
 
 The installer registers the preload (Docker entrypoint and/or `StartServer.bat`),
-keeps `mods/` in the `.dockerignore` allowlist and adds the logo bind mount:
+keeps `mods/` in the `.dockerignore` allowlist and adds the legacy logo bind mount:
 
 ```yaml
 - ./mods/autoLogo/logo:/app/mods/autoLogo/logo
@@ -73,7 +79,7 @@ resolver. Alliance logos use the vendor's existing file-backed store.
 ## Boot line
 
 ```
-[autoLogo] v1.1.3 active - /app/mods/autoLogo/logo -> /var/lib/evejs/corporation-logo
+[autoLogo] v1.1.4 active - <logo folder> -> <published folder>
 
 ```
 

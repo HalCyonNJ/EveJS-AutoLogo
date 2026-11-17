@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.4 - 2026-11-17
+
+**Third-party launcher support: update-safe logo folder and GitHub updates.**
+
+- The logo folder now defaults to `_local/autoLogo/logo`, outside the mod
+  package, so a launcher update (which replaces the whole package directory)
+  cannot delete the images. `config/autoLogo.json` (`logoPath`, relative to the
+  EveJS root) overrides it; an existing `mods/autoLogo/logo/` is still used when
+  no setting exists, so upgrades from 1.1.3 behave exactly as before.
+- Added the schema-3 `settings` declaration (`logoPath`, string, default
+  `_local/autoLogo/logo`) and the `updates` block (`HalCyonNJ/EveJS-AutoLogo`,
+  asset `autoLogo-{version}.zip`, `tagPrefix: v`).
+- No other behaviour change.
+
 ## 1.1.3 - 2026-11-16
 
 **Compatibility only: re-checked against EveJS 261115.2.**

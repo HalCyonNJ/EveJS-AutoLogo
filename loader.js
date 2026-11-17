@@ -4,7 +4,10 @@
 //
 // The folder is the whole interface:
 //
-//   mods/autoLogo/logo/<id>.png|jpg|jpeg   -> published to both image paths
+//   <logoPath>/<id>.png|jpg|jpeg   -> published to both image paths
+// `logoPath` defaults to `_local/autoLogo/logo` (outside the mod package, so a
+// launcher update cannot replace it). `config/autoLogo.json` can override it;
+// the in-package `mods/autoLogo/logo/` folder is still honoured when present.
 //   delete or rename the file              -> both published copies are removed
 //
 // Alliance ids and corporation ids never collide, so one folder serves both. A
@@ -31,7 +34,7 @@ const {
 } = require("./lib/publish");
 const { installResolver } = require("./lib/resolver");
 
-const MOD_VERSION = "1.1.3";
+const MOD_VERSION = "1.1.4";
 const KEY = Symbol.for("evejs.autoLogo.v1");
 const SWEEP_INTERVAL_MS = 60 * 1000;
 const WATCH_DEBOUNCE_MS = 1000;
@@ -57,6 +60,31 @@ function isGameServerProcess(root) {
     || entry === canonical(path.join(root, "server", "index.js"));
 }
 
+// The launcher replaces the whole package folder on an update, so the default
+// logo folder lives outside it. `config/autoLogo.json` (settings "logoPath",
+// relative to the EveJS root) wins; an existing in-package folder keeps working
+// for installs made before 1.1.4.
+function resolveLogoDir(root, legacyDir = path.join(__dirname, "logo")) {
+  const configPath = path.join(root, "config", "autoLogo.json");
+  let configured = "";
+  try {
+    const payload = JSON.parse(fs.readFileSync(configPath, "utf8"));
+    if (payload && typeof payload.logoPath === "string") configured = payload.logoPath.trim();
+  } catch (_error) {
+    // No settings file (or an unreadable one): fall through to the defaults.
+  }
+  if (configured) {
+    const target = path.resolve(root, configured);
+    const relative = path.relative(root, target);
+    if (relative && !relative.startsWith("..") && !path.isAbsolute(relative)) {
+      return { dir: target, source: "config" };
+    }
+    console.error(`[autoLogo] logoPath "${configured}" is outside the EveJS root; ignored`);
+  }
+  if (fs.existsSync(legacyDir)) return { dir: legacyDir, source: "legacy" };
+  return { dir: path.join(root, "_local", "autoLogo", "logo"), source: "default" };
+}
+
 function install(root = resolveRoot()) {
   if (!isMainThread) return null;
   if (globalThis[KEY]) return globalThis[KEY];
@@ -65,10 +93,14 @@ function install(root = resolveRoot()) {
     return null;
   }
 
-  const logoDir = path.join(__dirname, "logo");
-  const publishedDir = publishedRootFor(root);
   const log = (message) => console.log(`[autoLogo] ${message}`);
   const logError = (message) => console.error(`[autoLogo] ${message}`);
+  const resolved = resolveLogoDir(root);
+  const logoDir = resolved.dir;
+  if (resolved.source === "legacy") {
+    log("using the in-package logo folder (mods/autoLogo/logo); move the images to _local/autoLogo/logo so launcher updates keep them");
+  }
+  const publishedDir = publishedRootFor(root);
 
   let allianceStore = null;
   try {
@@ -173,6 +205,7 @@ module.exports = {
   MOD_VERSION,
   install,
   isGameServerProcess,
+  resolveLogoDir,
   resolveRoot,
 };
 

@@ -20,7 +20,7 @@ const {
   saveState,
   scanAndApply,
 } = require("../lib/publish");
-const { MOD_VERSION, isGameServerProcess, resolveRoot } = require("../loader");
+const { MOD_VERSION, isGameServerProcess, resolveLogoDir, resolveRoot } = require("../loader");
 
 let passed = 0;
 const failures = [];
@@ -224,9 +224,40 @@ test("resolver wrapper: published corporation file wins, others fall through", (
 });
 
 test("loader: version, root detection and process role", () => {
-  assert.strictEqual(MOD_VERSION, "1.1.3");
+  assert.strictEqual(MOD_VERSION, "1.1.4");
   assert.strictEqual(resolveRoot(tempDir("al-root2-")), null);
   assert.strictEqual(isGameServerProcess("/nonexistent"), false);
+});
+
+test("logo folder: default lives outside the package, settings and legacy win", () => {
+  const root = tempDir("al-logo-root-");
+  const legacy = path.join(root, "mods", "autoLogo", "logo");
+
+  // Nothing configured and no legacy folder: the default is under _local.
+  assert.deepStrictEqual(resolveLogoDir(root, legacy), {
+    dir: path.join(root, "_local", "autoLogo", "logo"),
+    source: "default",
+  });
+
+  // An existing in-package folder still wins over the default (installs < 1.1.4).
+  fs.mkdirSync(legacy, { recursive: true });
+  assert.deepStrictEqual(resolveLogoDir(root, legacy), { dir: legacy, source: "legacy" });
+
+  // config/autoLogo.json "logoPath" points somewhere else, relative to the root.
+  fs.mkdirSync(path.join(root, "config"), { recursive: true });
+  fs.writeFileSync(path.join(root, "config", "autoLogo.json"), JSON.stringify({ logoPath: "logos/alliance" }));
+  assert.deepStrictEqual(resolveLogoDir(root, legacy), {
+    dir: path.join(root, "logos", "alliance"),
+    source: "config",
+  });
+
+  // A path that escapes the EveJS root is refused, not followed.
+  fs.writeFileSync(path.join(root, "config", "autoLogo.json"), JSON.stringify({ logoPath: "../outside" }));
+  assert.deepStrictEqual(resolveLogoDir(root, legacy), { dir: legacy, source: "legacy" });
+
+  // Broken JSON falls back to the defaults too.
+  fs.writeFileSync(path.join(root, "config", "autoLogo.json"), "{not json");
+  assert.deepStrictEqual(resolveLogoDir(root, legacy), { dir: legacy, source: "legacy" });
 });
 
 console.log(`\n${passed}/${passed + failures.length} passed`);
